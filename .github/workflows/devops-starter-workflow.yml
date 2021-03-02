@@ -9,6 +9,7 @@ env:
   RESOURCEGROUPNAME: "secret-store-csi-aks-akv-rg"
   LOCATION: "East US"
   SUBSCRIPTIONID: "41f2f239-ca68-48bf-b2f0-dff8b108965a"
+  KEYVAULTNAME: "secretstorecsiakv"
   IMAGENAME: "secretstorecsiaksakv86bb"
   REGISTRYSKU: "Standard"
   REGISTRYNAME: "secretstorecsiaksakvacr"
@@ -48,6 +49,19 @@ jobs:
         template: ./ArmTemplates/aks-template.json
         parameters: clusterName="${{ env.CLUSTERNAME }}" appInsightsLocation="${{ env.APPINSIGHTSLOCATION }}" clusterLocation="${{ env.CLUSTERLOCATION }}" agentCount="${{ env.AGENTCOUNT }}" agentVMSize="${{ env.AGENTVMSIZE }}" kubernetesVersion="${{ env.KUBERNETESVERSION }}" omsLocation="${{ env.OMSLOCATION }}" omsWorkspaceName="${{ env.OMSWORKSPACENAME }}" httpApplicationRoutingEnabled="${{ env.HTTPSAPPLICATIONROUTINGENABLED }}"  dnsPrefix="${{ env.CLUSTERNAME }}"
 
+    - name: Create Azure Key Vault and secret
+      id: createKeyVault
+      run: |
+          az keyvault create --resource-group ${{ env.RESOURCEGROUPNAME }} --name ${{ env.KEYVAULTNAME }}
+          az keyvault secret set --vault-name ${{ env.KEYVAULTNAME }} --name test-secret --value test-secret-value
+          echo "::set-output name=object_id::`az aks show -g ${{ env.RESOURCEGROUPNAME }}  -n ${{ env.CLUSTERNAME }} --query identity.principalId`"
+          echo "::add-mask::`az aks show -g ${{ env.RESOURCEGROUPNAME }}  -n ${{ env.CLUSTERNAME }} --query identity.principalId`"
+          
+    - name: Set Azure Key Vault policy
+      id: setKeyVaultPolicy
+      run: |
+          az keyvault set-policy -n ${{ env.KEYVAULTNAME }} --secret-permissions get --object-id ${{ steps.createKeyVault.outputs.object_id }}
+          
     - name: Create ACR
       id: createACR
       run: |
