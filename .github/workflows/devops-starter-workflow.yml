@@ -97,6 +97,12 @@ jobs:
           az aks get-credentials --resource-group ${{ env.RESOURCEGROUPNAME }} --name ${{ env.CLUSTERNAME }} --file $GITHUB_WORKSPACE/kubeconfig
           echo "KUBECONFIG=$GITHUB_WORKSPACE/kubeconfig" >> $GITHUB_ENV
 
+    - name: Install Secrets Store CSI Driver and Azure Provider 
+      id: installSecretStoreDriver
+      run: |
+          helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
+          helm upgrade secret-store-csi-helm --install  csi-secrets-store-provider-azure/csi-secrets-store-provider-azure
+
     - name: Create namespace
       run: |
         namespacePresent=`kubectl get namespace | grep ${{ env.NAMESPACE }} | wc -l`
