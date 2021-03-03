@@ -8,8 +8,6 @@ on:
 env:
   RESOURCEGROUPNAME: "secret-store-csi-aks-akv-rg"
   LOCATION: "East US"
-  TENANTID: "72f988bf-86f1-41af-91ab-2d7cd011db47"
-  SUBSCRIPTIONID: "41f2f239-ca68-48bf-b2f0-dff8b108965a"
   KEYVAULTNAME: "secretstorecsiakv"
   IMAGENAME: "secretstorecsiaksakv86bb"
   REGISTRYSKU: "Standard"
@@ -45,7 +43,7 @@ jobs:
       id: deploy
       with:
         scope: resourcegroup
-        subscriptionId: ${{ env.SUBSCRIPTIONID }}
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTIONID }}
         resourceGroupName: ${{ env.RESOURCEGROUPNAME }}
         template: ./ArmTemplates/aks-template.json
         parameters: clusterName="${{ env.CLUSTERNAME }}" appInsightsLocation="${{ env.APPINSIGHTSLOCATION }}" clusterLocation="${{ env.CLUSTERLOCATION }}" agentCount="${{ env.AGENTCOUNT }}" agentVMSize="${{ env.AGENTVMSIZE }}" kubernetesVersion="${{ env.KUBERNETESVERSION }}" omsLocation="${{ env.OMSLOCATION }}" omsWorkspaceName="${{ env.OMSWORKSPACENAME }}" httpApplicationRoutingEnabled="${{ env.HTTPSAPPLICATIONROUTINGENABLED }}"  dnsPrefix="${{ env.CLUSTERNAME }}"
@@ -129,7 +127,7 @@ jobs:
           spec.parameters.userAssignedIdentityID: ${{ steps.getUserAssignedIdentity.outputs.user_assigned_identity }}
           spec.parameters.resourceGroup: ${{ env.RESOURCEGROUPNAME }} 
           spec.parameters.keyvaultName: ${{ env.KEYVAULTNAME }} 
-          spec.parameters.tenantId: ${{ env.TENANTID }} 
+          spec.parameters.tenantId: ${{ secrets.AZURE_TENANTID }} 
         helm-version: 'latest' 
         silent: 'true'
 
