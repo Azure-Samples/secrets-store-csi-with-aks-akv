@@ -1,9 +1,9 @@
 metadata: 
-  namespace: secretstorecsiaksakvaa86
+  namespace: VALUE_TO_BE_OVERRIDDEN
 spec:
   parameters:
-    userAssignedIdentityID: "6f4c9660-8bd1-4596-9fbe-45b044ecba5e"
-    resourceGroup: "secret-store-csi-aks-akv-rg"
-    keyvaultName: "secretstorecsiakv"
-    subscriptionId: "41f2f239-ca68-48bf-b2f0-dff8b108965a"
-    tenantId: "72f988bf-86f1-41af-91ab-2d7cd011db47"
+    userAssignedIdentityID: VALUE_TO_BE_OVERRIDDEN
+    resourceGroup: VALUE_TO_BE_OVERRIDDEN
+    keyvaultName: VALUE_TO_BE_OVERRIDDEN
+    subscriptionId: VALUE_TO_BE_OVERRIDDEN
+    tenantId: VALUE_TO_BE_OVERRIDDEN
