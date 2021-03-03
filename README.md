@@ -25,7 +25,6 @@ This repo......
 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest): Create and manage Azure resources.
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/): Kubernetes command-line tool which allows you to run commands against Kubernetes clusters.
-- [Helm](https://helm.sh/docs/intro/install/): Package manager for Kubernetes
 - [GitHub](https://github.com/) account
 
 ### Set up
