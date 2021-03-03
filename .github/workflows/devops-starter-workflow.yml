@@ -111,6 +111,21 @@ jobs:
             echo `kubectl create namespace ${{ env.NAMESPACE }}`
         fi
 
+    - uses: azure/k8s-bake@v1
+      id: bakeSecretStoreManifests
+      with:
+        renderEngine: 'helm'
+        helmChart: './Application/charts/secret-provider-class'
+        overrideFiles: './Application/charts/secret-provider-class/values.yaml'
+        overrides: |     
+          metadata.namespace:${{ env.NAMESPACE }}
+        helm-version: 'latest' 
+        silent: 'true'
+
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: ${{ steps.bakeSecretStoreManifests.outputs.manifestsBundle }}
+
     - name: Get ACR credentials
       id: getACRCred
       run: |
