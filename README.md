@@ -59,6 +59,10 @@ This repo......
 
 5. Commit your changes. The commit will trigger the build and deploy jobs within the workflow and will provision all the resources to run the sample application.
 
+## Validate the Secrets
+
+TBD
+
 ## Further Configuration
 
 - [Use a different Access Mode](https://azure.github.io/secrets-store-csi-driver-provider-azure/configurations/identity-access-modes/)
