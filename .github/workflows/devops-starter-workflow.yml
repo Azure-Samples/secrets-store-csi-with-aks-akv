@@ -54,8 +54,8 @@ jobs:
       run: |
           az keyvault create --resource-group ${{ env.RESOURCEGROUPNAME }} --name ${{ env.KEYVAULTNAME }}
           az keyvault secret set --vault-name ${{ env.KEYVAULTNAME }} --name test-secret --value test-secret-value
-          echo "::set-output name=object_id::`az aks show -g ${{ env.RESOURCEGROUPNAME }}  -n ${{ env.CLUSTERNAME }} --query identity.principalId`"
-          echo "::add-mask::`az aks show -g ${{ env.RESOURCEGROUPNAME }}  -n ${{ env.CLUSTERNAME }} --query identity.principalId`"
+          echo "::set-output name=object_id::`az aks show -g ${{ env.RESOURCEGROUPNAME }}  -n ${{ env.CLUSTERNAME }} --query identityProfile.kubeletidentity.clientId`"
+          echo "::add-mask::`az aks show -g ${{ env.RESOURCEGROUPNAME }}  -n ${{ env.CLUSTERNAME }} --query identityProfile.kubeletidentity.clientId`"
           
     - name: Set Azure Key Vault policy
       id: setKeyVaultPolicy
