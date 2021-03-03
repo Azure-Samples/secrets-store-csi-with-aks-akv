@@ -20,7 +20,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       volumes:
-        - name: azure-keyvault
+        - name: secrets-mount
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
@@ -59,8 +59,8 @@ spec:
             {{- end }}
           volumeMounts:
           # This mount is not used by the application but is required for the secretProviderClass
-            - mountPath: /azure-keyvault
-              name: azure-keyvault
+            - mountPath: "mnt/secrets-store"
+              name: secrets-mount
               readOnly: true
           resources:
 {{ toYaml .Values.resources | indent 12 }}
