@@ -5,5 +5,4 @@ spec:
     userAssignedIdentityID: VALUE_TO_BE_OVERRIDDEN
     resourceGroup: VALUE_TO_BE_OVERRIDDEN
     keyvaultName: VALUE_TO_BE_OVERRIDDEN
-    subscriptionId: VALUE_TO_BE_OVERRIDDEN
     tenantId: VALUE_TO_BE_OVERRIDDEN
