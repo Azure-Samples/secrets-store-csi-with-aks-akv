@@ -125,6 +125,7 @@ jobs:
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: ${{ steps.bakeSecretStoreManifests.outputs.manifestsBundle }}
+        namespace: ${{ env.NAMESPACE }}
 
     - name: Get ACR credentials
       id: getACRCred
