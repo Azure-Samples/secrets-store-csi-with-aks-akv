@@ -16,11 +16,11 @@ urlFragment: secrets-store-csi-with-aks-akv
 
 ## Overview
 
-This repo is a walkthrough of using secrets store csi as a mechanism to retrieve secrets from Azure KeyVault and inject those secrets into Azure Kubernetes service. The goal is for an application running inside an AKS cluster to be able to consume these secrets stored in Azure KeyVault without exposing the secrets.
+This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) and the [Azure Key Vault provider fo the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/) as a mechanism to get secret contents stored in Azure Key Vault instance and use the Secret Store CSI driver interface to mount them into Kubernetes pods.
 
-In this repo you can find a containerized Go sample app (deployed with an helm chart) running in an AKS cluster (provisioned with ARM templates), all setup with Github Actions workflow.
+In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow.
 
-Here's the folder structure:
+Here is the folder structure:
 
 - `.github\workflows`
   - `devops-workflow.yml` - Github Actions Pipelines yaml file
