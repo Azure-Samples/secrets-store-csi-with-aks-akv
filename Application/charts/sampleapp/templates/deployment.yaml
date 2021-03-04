@@ -19,6 +19,13 @@ spec:
         app: {{ template "sampleapp.name" . }}
         release: {{ .Release.Name }}
     spec:
+      volumes:
+        - name: secrets-mount
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-keyvault"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -50,6 +57,11 @@ spec:
                   key: {{ $key }}
             {{- end }}
             {{- end }}
+          volumeMounts:
+          # This mount is not used by the application but is required for the secretProviderClass
+            - mountPath: "mnt/secrets-store"
+              name: secrets-mount
+              readOnly: true
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.imagePullSecrets }}

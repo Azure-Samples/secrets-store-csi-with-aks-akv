@@ -1,0 +1,8 @@
+metadata: 
+  namespace: VALUE_TO_BE_OVERRIDDEN
+spec:
+  parameters:
+    userAssignedIdentityID: VALUE_TO_BE_OVERRIDDEN
+    resourceGroup: VALUE_TO_BE_OVERRIDDEN
+    keyvaultName: VALUE_TO_BE_OVERRIDDEN
+    tenantId: VALUE_TO_BE_OVERRIDDEN
