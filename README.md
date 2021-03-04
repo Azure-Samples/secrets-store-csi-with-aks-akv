@@ -27,7 +27,7 @@ Here is the folder structure:
 - `Application`
   - `charts` - Helm charts for both Sample Code and Secrets Store Provider Class
   - `app.go` - Go Sample Code
-  - `docker-compose.yml` - Dockerfile yaml file to run the Sample Code
+  - `Dockerfile.yml` - Dockerfile yaml file to run the Sample Code
 - `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
 
 ## Getting Started
