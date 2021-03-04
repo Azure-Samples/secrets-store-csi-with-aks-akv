@@ -17,7 +17,7 @@ urlFragment: secrets-store-csi-with-aks-akv
 ## Overview
 This repo is a walkthrough of using secrets store csi as a mechanism to retrieve secrets from azure keyvault and inject those secrets into azure kubernetes service. The goal is for an apllication or database running inside an aks cluster to be able to consume these secrets stored in azure keyvaults without exposing the secrets.
 
-In this repo you can find a containerized sample Go app (deployed with an helm chart) running in an aks (provisioned with ARM templates), all setup with Github Actions workflow.
+In this repo you can find a containerized Go sample app (deployed with an helm chart) running in an aks (provisioned with ARM templates), all setup with Github Actions workflow.
 
 Here's the folder structure:
 
@@ -70,7 +70,21 @@ Here's the folder structure:
 
 ## Validate the Secrets
 
-TBD
+To validate the secrets injected sample app pod in kubernetes cluster from azure keyvault:
+
+```bash
+# Get a pod name the app is running on
+PODNAME=$(kubectl get pod -l app=sampleapp -o jsonpath="{.items[0].metadata.name}" -n secretstorecsiaksakvaa86)
+
+# Exec into the pod
+kubectl exec -it $PODNAME bash -n secretstorecsiaksakvaa86
+
+# Navigate to the secrets store mount directory
+cd /mnt/secrets-store/
+
+# Verify the secrets
+`ls` and `cat test-secret; echo`
+```
 
 ## Further Configuration
 
