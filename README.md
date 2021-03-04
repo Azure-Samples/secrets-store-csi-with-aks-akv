@@ -5,19 +5,29 @@ languages:
 - yaml
 products:
 - azure
-- azure-kubernetes-cluster
-- secrets-store-csi
-- github-actions
+- azure-kubernetes-service
+- github
 name: Secrets Store CSI with Azure Kubernetes and Azure KeyVault
-description: Using Secrets Store CSI with Azure Kubernetes and Azure KeyVault run in Github Actions with a sample Golang application
+description: Using Secrets Store CSI with Azure Kubernetes, Azure KeyVault and a sample Go application
 urlFragment: secrets-store-csi-with-aks-akv
 ---
 
-# Using Secrets Store CSI with Azure Kubernetes and Azure KeyVault run in Github Actions with a sample Golang application
+# Using Secrets Store CSI with Azure Kubernetes and Azure KeyVault in Github Actions with a sample Golang application
 
 ## Overview
+This repo is a walkthrough of using secrets store csi as a mechanism to retrieve secrets from azure keyvault and inject those secrets into azure kubernetes service. The goal is for an apllication or database running inside an aks cluster to be able to consume these secrets stored in azure keyvaults without exposing the secrets.
 
-This repo......
+In this repo you can find a containerized sample Go app (deployed with an helm chart) running in an aks (provisioned with ARM templates), all setup with Github Actions workflow.
+
+Here's the folder structure:
+
+- `.github\workflows`
+  - `devops-workflow.yml` - Github Actions Pipelines yaml file
+- `Application`
+  - `charts` - Helm charts for both Sample Code and Secrets Store Provider Class
+  - `app.go` - Go Sample Code
+  - `docker-compose.yml` - Dockerfile yaml file to run the Sample Code
+- `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
 
 ## Getting Started
 
