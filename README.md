@@ -91,6 +91,7 @@ PODNAME=$(kubectl get pod -l app=sampleapp -o jsonpath="{.items[0].metadata.name
 kubectl exec -it $PODNAME -n $NAMESPACE -- bash
 
 # Verify the secrets
+cd /mnt/secrets-store/
 cat test-secret; echo
 ```
 
