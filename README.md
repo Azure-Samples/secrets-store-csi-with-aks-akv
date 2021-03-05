@@ -18,9 +18,14 @@ urlFragment: secrets-store-csi-with-aks-akv
 
 This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) as a mechanism to get secret contents stored in Azure Key Vault instance and use the Secret Store CSI driver interface to mount them into Kubernetes pods.
 
-While this documentation [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/) discussed a quickstart of using 4 different modes for accessing keyvault instance such as using a Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity, this walkthrough focused on using the `User-assigned Managed Identity` in an automated Github Actions workflow.
+In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow. The [workflow](.github\workflows\devops-workflow.yml) includes steps to:
 
-In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow.
+- Provision an AKS Cluster and an Azure KeyVault
+- Install the [Secrets Store CSI Driver and the Azure Keyvault Provider](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/installation/) using Helm
+- Deploy a [SecretProviderClass Object](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/usage/#create-your-own-secretproviderclass-object) using Helm
+- Deploy a sample Go app to the AKS cluster using Helm. The [deployment yaml is configured](Application\charts\sampleapp\templates\deployment.yaml) to use the Secrets Store CSI driver and reference the SecretProviderClass resource.
+
+While the [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/configurations/identity-access-modes/) offers 4 modes for accessing a KeyVault instance (Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity), this sample focused on using the `User-assigned Managed Identity`.
 
 Here is the folder structure:
 
@@ -34,7 +39,7 @@ Here is the folder structure:
   - `Dockerfile` - Dockerfile for the sample app
 - `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
 
-While the infrastructure deployments and `using Secrets Store CSI with Azure Kubernetes and Azure KeyVault` steps are all automated in the `devops-workflow.yml`, here is an Azure documentation [Secrets Store CSI with Azure Kubernetes and Azure KeyVault ](https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes) that describes a manual walkthrough. 
+While the infrastructure deployments and `using Secrets Store CSI with Azure Kubernetes and Azure KeyVault` steps are all automated in the `devops-workflow.yml`, here is an Azure documentation [Secrets Store CSI with Azure Kubernetes and Azure KeyVault](https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes) that describes a manual walkthrough.
 
 ## Getting Started
 
