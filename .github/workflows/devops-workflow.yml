@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - csi-store
+      - main
 
 env:
   RESOURCEGROUPNAME: "secret-store-csi-aks-akv-rg"

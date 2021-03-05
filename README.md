@@ -25,7 +25,9 @@ Here is the folder structure:
 - `.github\workflows`
   - `devops-workflow.yml` - Github Actions Pipelines yaml file
 - `Application`
-  - `charts` - Helm charts for both sample app and Secrets Store Provider Class
+  - `charts`
+    - `sampleapp` - Helm chart for sample app
+    - `secret-provider-class` - Helm chart for Secrets Store Provider Class
   - `app.go` - Go sample app
   - `Dockerfile` - Dockerfile for the sample app
 - `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
@@ -65,7 +67,7 @@ Here is the folder structure:
 
     For more details on generating the deployment credentials please see [this guide](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions#generate-deployment-credentials).
 
-4. [Github Actions](https://docs.github.com/en/actions) will be used to automate the workflow and deploy all the necessary resources to Azure. Open the [.github\workflows\devops-starter-workflow.yml](.github\workflows\devops-starter-workflow.yml) and change the environment variables accordingly. Update the `RESOURCEGROUPNAME` variable and set the value that you created above.
+4. [Github Actions](https://docs.github.com/en/actions) will be used to automate the workflow and deploy all the necessary resources to Azure. Open the [.github\workflows\devops-workflow.yml](.github\workflows\devops-workflow.yml) and change the environment variables accordingly. Update the `RESOURCEGROUPNAME` variable and set the value that you created above.
 
 5. Commit your changes. The commit will trigger the build and deploy jobs within the workflow and will provision all the resources to run the sample application.
 
