@@ -25,9 +25,9 @@ Here is the folder structure:
 - `.github\workflows`
   - `devops-workflow.yml` - Github Actions Pipelines yaml file
 - `Application`
-  - `charts` - Helm charts for both Sample Code and Secrets Store Provider Class
-  - `app.go` - Go Sample Code
-  - `Dockerfile.yml` - Dockerfile yaml file to run the Sample Code
+  - `charts` - Helm charts for both sample app and Secrets Store Provider Class
+  - `app.go` - Go sample app
+  - `Dockerfile` - Dockerfile for the sample app
 - `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
 
 ## Getting Started
@@ -96,11 +96,3 @@ cat test-secret; echo
 
 - [Use a different Access Mode](https://azure.github.io/secrets-store-csi-driver-provider-azure/configurations/identity-access-modes/)
 - [Microsoft Docs Tutorial](https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes)
-
-## License
-
-See [LICENSE](LICENSE).
-
-## Contributing
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
