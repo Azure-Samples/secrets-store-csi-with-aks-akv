@@ -84,7 +84,7 @@ While the infrastructure deployments and `using Secrets Store CSI with Azure Kub
 
 To validate that the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault:
 
-**Note:** The expected secrets should be `test-secret-value`.
+**# Note:** The expected secrets should be `test-secret-value`.
 
 ```bash
 # Define variables
