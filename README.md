@@ -18,7 +18,7 @@ urlFragment: secrets-store-csi-with-aks-akv
 
 This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) as a mechanism to get secret contents stored in Azure Key Vault instance and use the Secret Store CSI driver interface to mount them into Kubernetes pods.
 
-While this documentation [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/) discussed a quickstart of using 4 different modes for accessing keyvault instance such as using a Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity, this walktrough focused on using the `User-assigned Managed Identity` in an automated Github Actions workflow.
+While this documentation [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/) discussed a quickstart of using 4 different modes for accessing keyvault instance such as using a Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity, this walkthrough focused on using the `User-assigned Managed Identity` in an automated Github Actions workflow.
 
 In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow.
 
@@ -100,8 +100,3 @@ kubectl exec -it $PODNAME -n $NAMESPACE -- bash
 cd /mnt/secrets-store/
 cat test-secret; echo
 ```
-
-## Further Configuration
-
-- [Use a different Access Mode](https://azure.github.io/secrets-store-csi-driver-provider-azure/configurations/identity-access-modes/)
-- [Microsoft Docs Tutorial](https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes)
