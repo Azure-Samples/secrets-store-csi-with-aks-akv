@@ -8,15 +8,17 @@ products:
 - azure-kubernetes-service
 - github
 name: Secrets Store CSI with Azure Kubernetes and Azure KeyVault
-description: Using Secrets Store CSI with Azure Kubernetes, Azure KeyVault provider and a sample Go application
+description: Using Secrets Store CSI with Azure Kubernetes and Azure KeyVault
 urlFragment: secrets-store-csi-with-aks-akv
 ---
 
-# Using Secrets Store CSI with Azure Kubernetes, Azure KeyVault provider and a sample Go application
+# Using Secrets Store CSI with Azure Kubernetes and Azure KeyVault
 
 ## Overview
 
-This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) and the [Azure Key Vault provider fo the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/) as a mechanism to get secret contents stored in Azure Key Vault instance and use the Secret Store CSI driver interface to mount them into Kubernetes pods.
+This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) as a mechanism to get secret contents stored in Azure Key Vault instance and use the Secret Store CSI driver interface to mount them into Kubernetes pods.
+
+While this documentation [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/) discussed a quickstart of using 4 different modes for accessing keyvault instance such as using a Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity, this walktrough focused on using the `User-assigned Managed Identity` in an automated Github Actions workflow.
 
 In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow.
 
@@ -31,6 +33,8 @@ Here is the folder structure:
   - `app.go` - Go sample app
   - `Dockerfile` - Dockerfile for the sample app
 - `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
+
+While the infrastructure deployments and `using Secrets Store CSI with Azure Kubernetes and Azure KeyVault` steps are all automated in the `devops-workflow.yml`, here is an Azure documentation [Secrets Store CSI with Azure Kubernetes and Azure KeyVault ](https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes) that describes a manual walkthrough. 
 
 ## Getting Started
 
@@ -73,7 +77,9 @@ Here is the folder structure:
 
 ## Validate the Secrets
 
-To validate the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault:
+To validate that the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault:
+
+**Note:** The expected secrets should be `test-secret-value`.
 
 ```bash
 # Define variables
