@@ -8,11 +8,11 @@ products:
 - azure-kubernetes-service
 - github
 name: Secrets Store CSI with Azure Kubernetes and Azure KeyVault
-description: Using Secrets Store CSI with Azure Kubernetes, Azure KeyVault and a sample Go application
+description: Using Secrets Store CSI with Azure Kubernetes, Azure KeyVault provider and a sample Go application
 urlFragment: secrets-store-csi-with-aks-akv
 ---
 
-# Using Secrets Store CSI with Azure Kubernetes and Azure KeyVault in Github Actions with a sample Golang application
+# Using Secrets Store CSI with Azure Kubernetes, Azure KeyVault provider and a sample Go application
 
 ## Overview
 
