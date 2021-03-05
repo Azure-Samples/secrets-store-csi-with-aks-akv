@@ -48,13 +48,13 @@ Here is the folder structure:
     RESOURCEGROUPNAME="MyResourceGroup"
     LOCATION="MyLocation"
     SUBSCRIPTIONID="MySubscriptionId"
-    SERVICEPRINCIPAL="MySPName"
+    SERVICEPRINCIPALNAME="MyServicePrincipalName"
 
     # Create resource group
     az group create --name $RESOURCEGROUPNAME --location $LOCATION
 
     # Create a service principal with Contributor role to the resource group
-    az ad sp create-for-rbac --name $SERVICEPRINCIPAL --role contributor --scopes /subscriptions/$SUBSCRIPTIONID/resourceGroups/$RESOURCEGROUPNAME --sdk-auth
+    az ad sp create-for-rbac --name $SERVICEPRINCIPALNAME --role Contributor --scopes /subscriptions/$SUBSCRIPTIONID/resourceGroups/$RESOURCEGROUPNAME --sdk-auth
     ```
 
 3. Use the output of the last command as a secret named `AZURE_CREDENTIALS` in the repository settings (Settings -> Secrets -> Add New Secret).
@@ -74,15 +74,19 @@ Here is the folder structure:
 To validate the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault:
 
 ```bash
-NAMESPACE="<the sampleapp namespace>"
+# Define variables
+RESOURCEGROUPNAME="<insert-resource-group-name-here>"
+CLUSTERNAME="<insert-cluster-name-here>"
+NAMESPACE="<insert-sampleapp-namespace-name-here>"
+
+# Connect to Cluster
+az aks get-credentials --resource-group $RESOURCEGROUPNAME --name $CLUSTERNAME
+
 # Get a pod name the app is running on
 PODNAME=$(kubectl get pod -l app=sampleapp -o jsonpath="{.items[0].metadata.name}" -n $NAMESPACE)
 
 # Exec into the pod
-kubectl exec -it $PODNAME bash -n $NAMESPACE
-
-# Navigate to the secrets store mount directory
-cd /mnt/secrets-store/
+kubectl exec -it $PODNAME -n $NAMESPACE -- bash
 
 # Verify the secrets
 cat test-secret; echo
