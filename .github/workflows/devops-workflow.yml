@@ -8,22 +8,22 @@ on:
 env:
   RESOURCEGROUPNAME: "ola-test-rg"
   LOCATION: "East US"
-  KEYVAULTNAME: "secretstorecsiakv"
-  IMAGENAME: "secretstorecsiaksakv86bb"
+  KEYVAULTNAME: "secretstorecsiakvola"
+  IMAGENAME: "secretstorecsiaksakv86bbola"
   REGISTRYSKU: "Standard"
-  REGISTRYNAME: "secretstorecsiaksakvacr"
+  REGISTRYNAME: "secretstorecsiaksakvacrola"
   REGISTRYLOCATION: "South Central US"
-  CLUSTERNAME: "secret-store-csi-aks-akv"
+  CLUSTERNAME: "secret-store-csi-aks-akvola"
   APPINSIGHTSLOCATION: "East US"
   CLUSTERLOCATION: "East US"
   AGENTCOUNT: "3"
   AGENTVMSIZE: "Standard_DS2_v2"
   KUBERNETESVERSION: 1.17.13
   OMSLOCATION: "East US"
-  OMSWORKSPACENAME: "secretstorecsiaksakv6b56"
+  OMSWORKSPACENAME: "secretstorecsiaksakv6b56ola"
   HTTPSAPPLICATIONROUTINGENABLED: false
   KUBERNETESAPI: "apps/v1"
-  NAMESPACE: "secretstorecsiaksakvaa86"
+  NAMESPACE: "secretstorecsiaksakvaa86ola"
 
 jobs:
   build:
