@@ -68,7 +68,7 @@ While the infrastructure deployments and `using Secrets Store CSI with Azure Kub
     az ad sp create-for-rbac --name $SERVICEPRINCIPALNAME --role Contributor --scopes /subscriptions/$SUBSCRIPTIONID/resourceGroups/$RESOURCEGROUPNAME --sdk-auth
     ```
 
-3. Use the output of the last command as a secret named `AZURE_CREDENTIALS` in the repository settings (Settings -> Secrets -> Add New Secret).
+3. Use the json output of the last command as a secret named `AZURE_CREDENTIALS` in the repository settings (Settings -> Secrets -> Add New Secret).
 
     Also add a secret named `AZURE_SUBSCRIPTIONID` for the subscription id and a secret named `AZURE_TENANTID` for the tenant id.
 
