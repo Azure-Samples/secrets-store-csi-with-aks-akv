@@ -41,6 +41,24 @@ Here is the folder structure:
   - `Dockerfile` - Dockerfile for the sample app
 - `ArmTemplates` - Arm Templates for provisioning aks, acr and application insights
 
+### Accessing the Key vault
+[Azure Key vault provider for Secrets Store CSI driver](https://github.com/Azure/secrets-store-csi-driver-provider-azure) allows you to access secrets stored in an Azure Key vault instance. The [Secrets Store CSI driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver) `secrets-store.csi.k8s.io` allows the cluster to mount secrets stored in Azure Key vault into the pods as a volume.
+
+A [**`SecretProviderClass`**](Application/charts/secret-provider-class/templates/secretproviderclass.yaml) custom resource is created in the defined namespace to provide Azure-specific parameters for the Secrets Store CSI driver.
+
+To ensure the sample app is able to access the secrets stored in the provisioned Azure Key vault, the [**`deployment.yaml`**](Application/charts/sampleapp/templates/deployment.yaml) is updated to use `secrets-store.csi.k8s.io` driver and the `SecretProviderClass` created is referenced as shown in the snippet below.
+
+```yaml
+spec:
+  volumes:
+    - name: secrets-mount
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "azure-keyvault"
+```
+
 While the infrastructure deployments and `using Secrets Store CSI with Azure Kubernetes and Azure KeyVault` steps are all automated in the `devops-workflow.yml`, here is an Azure documentation [Secrets Store CSI with Azure Kubernetes and Azure KeyVault](https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes) that describes a manual walkthrough.
 
 ## Getting Started
@@ -82,23 +100,6 @@ While the infrastructure deployments and `using Secrets Store CSI with Azure Kub
 
 5. Commit your changes. The commit will trigger the build and deploy jobs within the workflow and will provision all the resources to run the sample application.
 
-## Accessing the Key vault
-[Azure Key vault provider for Secrets Store CSI driver](https://github.com/Azure/secrets-store-csi-driver-provider-azure) allows you to access secrets stored in an Azure Key vault instance. The [Secrets Store CSI driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver) `secrets-store.csi.k8s.io` allows the cluster to mount secrets stored in Azure Key vault into the pods as a volume.
-
-A [**`SecretProviderClass`**](Application/charts/secret-provider-class/templates/secretproviderclass.yaml) custom resource is created in the defined namespace to provide Azure-specific parameters for the Secrets Store CSI driver.
-
-To ensure the sample app is able to access the secrets stored in the provisioned Azure Key vault, the [**`deployment.yaml`**](Application/charts/sampleapp/templates/deployment.yaml) is updated to use `secrets-store.csi.k8s.io` driver and the `SecretProviderClass` created is referenced as shown in the snippet below.
-
-```yaml
-spec:
-  volumes:
-    - name: secrets-mount
-      csi:
-        driver: secrets-store.csi.k8s.io
-        readOnly: true
-        volumeAttributes:
-          secretProviderClass: "azure-keyvault"
-```
 ## Validate the Secrets
 To validate that the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault as specified in the deployment yaml.
 
