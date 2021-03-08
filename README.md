@@ -23,9 +23,11 @@ In this repo you can find a containerized Go sample app (deployed with [Helm](ht
 - Provision an AKS Cluster and an Azure KeyVault
 - Install the [Secrets Store CSI Driver and the Azure Keyvault Provider](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/installation/) using Helm
 - Deploy a [SecretProviderClass Object](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/usage/#create-your-own-secretproviderclass-object) using Helm
-- Deploy a sample Go app to the AKS cluster using Helm. The [deployment yaml is configured](Application\charts\sampleapp\templates\deployment.yaml) to use the Secrets Store CSI driver and reference the SecretProviderClass resource.
+- Sets the Key vault policy
+- Adds a secret named `test-secret` and set it's value to `test-secret-value`
+- Deploy a containerized sample Go app to the AKS cluster using Helm. The [deployment yaml is configured](Application\charts\sampleapp\templates\deployment.yaml) to use the Secrets Store CSI driver and reference the SecretProviderClass resource.
 
-While the [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/configurations/identity-access-modes/) offers 4 modes for accessing a KeyVault instance (Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity), this sample focused on using the `User-assigned Managed Identity`.
+The [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets-store-csi-driver-provider-azure/configurations/identity-access-modes/) offers 4 modes for accessing a KeyVault instance (Service Principal, Pod Identity, User-assigned Managed Identity, and System-assigned Managed Identity), this sample focused on using the `User-assigned Managed Identity`.
 
 Here is the folder structure:
 
@@ -80,11 +82,33 @@ While the infrastructure deployments and `using Secrets Store CSI with Azure Kub
 
 5. Commit your changes. The commit will trigger the build and deploy jobs within the workflow and will provision all the resources to run the sample application.
 
+## Accessing the Key vault
+[Azure Key vault provider for Secrets Store CSI driver](https://github.com/Azure/secrets-store-csi-driver-provider-azure) allows you to access secrets stored in an Azure Key vault instance. The [Secrets Store CSI driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver) `secrets-store.csi.k8s.io` allows the cluster to mount secrets stored in Azure Key vault into the pods as a volume.
+
+A [**`SecretProviderClass`**](Application/charts/secret-provider-class/templates/secretproviderclass.yaml) custom resource is created in the defined namespace to provide Azure-specific parameters for the Secrets Store CSI driver.
+
+To ensure the sample app is able to access the secrets stored in the provisioned Azure Key vault, the [**`deployment.yaml`**](Application/charts/sampleapp/templates/deployment.yaml) is updated to use `secrets-store.csi.k8s.io` driver and the `SecretProviderClass` created is referenced as shown in the snippet below.
+
+```yaml
+spec:
+  volumes:
+    - name: secrets-mount
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "azure-keyvault"
+```
 ## Validate the Secrets
+To validate that the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault as specified in the deployment yaml.
 
-To validate that the secrets are mounted to the sampleapp pod in the AKS cluster from Azure KeyVault:
+```yaml
+- mountPath: "mnt/secrets-store"
+  name: secrets-mount
+  readOnly: true
+```
 
-**# Note:** The expected secrets should be `test-secret-value`.
+**Note:** The expected secrets should be `test-secret-value`.
 
 ```bash
 # Define variables
