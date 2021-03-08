@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  RESOURCEGROUPNAME: "secret-store-csi-aks-akv-rg"
+  RESOURCEGROUPNAME: "ola-test-rg"
   LOCATION: "East US"
   KEYVAULTNAME: "secretstorecsiakv"
   IMAGENAME: "secretstorecsiaksakv86bb"
