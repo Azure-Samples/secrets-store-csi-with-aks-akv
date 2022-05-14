@@ -18,7 +18,7 @@ urlFragment: secrets-store-csi-with-aks-akv
 
 This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) as a mechanism to get secret contents stored in Azure Key Vault instance and use the Secret Store CSI driver interface to mount them into Kubernetes pods.
 
-In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow. The [workflow](.github\workflows\devops-workflow.yml) includes steps to:
+In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a GitHub Actions workflow. The [workflow](.github\workflows\devops-workflow.yml) includes steps to:
 
 - Provision an AKS Cluster and an Azure KeyVault
 - Install the [Secrets Store CSI Driver and the Azure Keyvault Provider](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/installation/) using Helm
@@ -32,7 +32,7 @@ The [Azure Key Vault provider of the CSI driver](https://azure.github.io/secrets
 Here is the folder structure:
 
 - `.github\workflows`
-  - `devops-workflow.yml` - Github Actions Pipelines yaml file
+  - `devops-workflow.yml` - GitHub Actions Pipelines yaml file
 - `Application`
   - `charts`
     - `sampleapp` - Helm chart for sample app
@@ -96,7 +96,7 @@ While the infrastructure deployments and `using Secrets Store CSI with Azure Kub
 
     For more details on generating the deployment credentials please see [this guide](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions#generate-deployment-credentials).
 
-4. [Github Actions](https://docs.github.com/en/actions) will be used to automate the workflow and deploy all the necessary resources to Azure. Open the [.github\workflows\devops-workflow.yml](.github\workflows\devops-workflow.yml) and change the environment variables accordingly. Update the `RESOURCEGROUPNAME` variable and set the value that you created above.
+4. [GitHub Actions](https://docs.github.com/en/actions) will be used to automate the workflow and deploy all the necessary resources to Azure. Open the [.github\workflows\devops-workflow.yml](.github\workflows\devops-workflow.yml) and change the environment variables accordingly. Update the `RESOURCEGROUPNAME` variable and set the value that you created above.
 
 5. Commit your changes. The commit will trigger the build and deploy jobs within the workflow and will provision all the resources to run the sample application.
 
