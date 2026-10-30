@@ -21,7 +21,7 @@ This repo is a walkthrough of using the [Kubernetes Secrets Store CSI Driver](ht
 In this repo you can find a containerized Go sample app (deployed with [Helm](https://helm.sh/)) running in an AKS cluster (provisioned with ARM templates), all setup with a Github Actions workflow. The [workflow](.github\workflows\devops-workflow.yml) includes steps to:
 
 - Provision an AKS Cluster and an Azure KeyVault
-- Install the [Secrets Store CSI Driver and the Azure Keyvault Provider](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/installation/) using Helm
+- Install the [Secrets Store CSI Driver and the Azure Keyvault Provider](https://azure.github.io/secrets-store-csi-driver-provider-azure/docs/getting-started/installation/) using Helm
 - Deploy a [SecretProviderClass Object](https://azure.github.io/secrets-store-csi-driver-provider-azure/getting-started/usage/#create-your-own-secretproviderclass-object) using Helm
 - Sets the Key vault policy
 - Adds a secret named `test-secret` and set it's value to `test-secret-value`
